@@ -7,8 +7,8 @@ class City:
       self.lat = lat
       self.lon = lon
 
-    # def __str__(self):
-    #   return f'{self.name}, {self.lat}, {self.lon}'
+    def __str__(self):
+      return f'{self.name}, {self.lat}, {self.lon}'
 
 
 # We have a collection of US cities with population over 750,000 stored in the
@@ -42,8 +42,8 @@ def cityreader(cities=[]):
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
-for c in cities:
-    print(f'{c.name}, {c.lat}, {c.lon}')
+# for c in cities:
+#     print(f'{c.name}, {c.lat}, {c.lon}')
 
 # STRETCH GOAL!
 #
@@ -73,15 +73,44 @@ for c in cities:
 # Phoenix: (33.5722,-112.0891)
 # Tucson: (32.1558,-110.8777)
 # Salt Lake City: (40.7774,-111.9301)
+# print('Give two coordinates with latitude and longitude. The first coordinates should be the upper left coner you want to start with and the second should be the lower right corner yo want to end with.')
+user_input = input('example of valid input (lat1, lon1/ lat2, lon2) --> ').split('/')
+s = []
+for i in user_input:
+  s.append(i.split(',')) 
+print(s)
 
-# TODO Get latitude and longitude values from the user
+def check_lat_values(first_value, second_value):
+  if first_value > second_value:
+    return True
+  else:
+    # print("Your second Lattitude is greater than you first. Invalid endpoint for lattitude.")
+    return False
+
+def check_lon_values(first_value, second_value):
+  if first_value > second_value:
+    return True
+  else:
+    # print("Your second Lattitude is greater than you first. Invalid endpoint for lattitude.")
+    return False
+
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
   within = []
+  if check_lat_values(lat1, lat2):
 
-  # TODO Ensure that the lat and lon valuse are all floats
-  # Go through each city and check to see if it falls within 
-  # the specified coordinates.
+    # TODO Ensure that the lat and lon valuse are all floats
+    # Go through each city and check to see if it falls within 
+    # the specified coordinates.
+    for val in cities:
+        if val.lat <= lat1 and val.lon <= lon2 and val.lat >= lat2 and val.lon >= lat2:
+          within.append(val)
+        else:
+          pass
+  else:
+    print("Your second Lattitude and logitude values are about the first values, please select a different set that is below first set of values.")
 
   return within
+
+cityreader_stretch(float(s[0][0]), float(s[0][1]), float(s[1][0]), float(s[1][1]), cities)
